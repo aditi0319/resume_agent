@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>AI Resume Agent</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 { text-align: center; }
+
+    .card {
+        background: white;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 700px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .textarea, .input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #aaa;
+        border-radius: 6px;
+    }
+
+    button {
+        padding: 10px 15px;
+        margin: 5px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    button:hover { background: #0056b3; }
+
+    .box {
+        background: #eee;
+        padding: 10px;
+        border-radius: 6px;
+        margin-top: 10px;
+        white-space: pre-wrap;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>AI Resume Agent</h1>
+
+<!-- MODE SELECTION -->
+<section class="card">
+    <h2>Select Input Method</h2>
+
+    <label>
+        <input type="radio" name="inputMode" value="upload" checked>
+        Upload Resume (PDF / DOCX)
+    </label><br>
+
+    <label>
+        <input type="radio" name="inputMode" value="manual">
+        Enter Details Manually
+    </label>
+</section>
+
+<!-- UPLOAD MODE -->
+<div id="uploadMode">
+<section class="card">
+    <h2>1) Upload & Parse Resume</h2>
+
+    <form id="uploadForm">
+        <input type="file" id="fileInput" class="input" accept=".pdf,.doc,.docx">
+        <button type="submit">Upload & Parse</button>
+    </form>
+
+    <div id="parseStatus" class="box"></div>
+    <pre id="parsedText" class="box"></pre>
+</section>
+</div>
+
+<!-- MANUAL MODE -->
+<div id="manualMode" style="display:none;">
+<section class="card">
+    <h2>1) Enter Details Manually</h2>
+
+    <label>Name</label>
+    <input id="nameInput" class="input">
+
+    <label>Email</label>
+    <input id="emailInput" class="input">
+
+    <label>Phone</label>
+    <input id="phoneInput" class="input">
+
+    <label>Summary</label>
+    <textarea id="summaryInput" class="textarea"></textarea>
+
+    <label>Skills (comma separated)</label>
+    <input id="skillsInput" class="input">
+
+    <label>Experience</label>
+    <textarea id="expInput" class="textarea"></textarea>
+
+    <label>Education</label>
+    <textarea id="eduInput" class="textarea"></textarea>
+
+    <label>Projects</label>
+    <textarea id="projInput" class="textarea"></textarea>
+
+    <button id="convertToJson">Save Manual Details</button>
+</section>
+</div>
+
+<!-- PROCESSING AREA -->
+<section class="card">
+    <h2>2) Job Description + Actions</h2>
+
+    <h3>Job Description (Optional)</h3>
+    <textarea id="jobDescription" class="textarea" placeholder="Paste job description here..."></textarea>
+
+    <button id="buildFromParsed">Use Parsed Resume</button>
+    <button id="runAts">Run ATS Score</button>
+    <button id="runEnhance">Enhance Resume</button>
+    <button id="runGenerate">Generate PDF + DOCX</button>
+
+    <div id="atsResult" class="box"></div>
+    <div id="enhancedResult" class="box"></div>
+    <div id="downloads" class="box"></div>
+</section>
+
+<!-- HIDDEN JSON STORAGE -->
+<textarea id="resumeJson" style="display:none;"></textarea>
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>

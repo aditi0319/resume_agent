@@ -1,0 +1,53 @@
+% backend/templates/autocv.tex.j2
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=0.8in]{geometry}
+\usepackage{enumitem}
+\begin{document}
+\pagestyle{empty}
+\begin{center}
+  {\LARGE \textbf{{{ resume.name | default("Your Name") }}}} \\
+  \vspace{2mm}
+  {% if resume.email %} {{ resume.email }} {% endif %} \\
+  {% if resume.phone %} {{ resume.phone }} {% endif %}
+\end{center}
+
+\section*{Summary}
+{{ resume.summary | default(" ") }}
+
+{% if resume.skills %}
+\section*{Skills}
+\begin{itemize}[leftmargin=*,noitemsep]
+{% for s in resume.skills %}
+  \item {{ s }}
+{% endfor %}
+\end{itemize}
+{% endif %}
+
+{% if resume.experience %}
+\section*{Experience}
+\begin{itemize}[leftmargin=*,noitemsep]
+{% for e in resume.experience %}
+  \item {{ e }}
+{% endfor %}
+\end{itemize}
+{% endif %}
+
+{% if resume.projects %}
+\section*{Projects}
+\begin{itemize}[leftmargin=*,noitemsep]
+{% for p in resume.projects %}
+  \item {{ p }}
+{% endfor %}
+\end{itemize}
+{% endif %}
+
+{% if resume.education %}
+\section*{Education}
+\begin{itemize}[leftmargin=*,noitemsep]
+{% for ed in resume.education %}
+  \item {{ ed }}
+{% endfor %}
+\end{itemize}
+{% endif %}
+
+\end{document}
